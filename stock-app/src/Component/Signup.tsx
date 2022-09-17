@@ -13,15 +13,16 @@ export function Signup() {
   async function handleSubmit(e: React.ChangeEvent<any>) {
     e.preventDefault()
 
-    if (passwordRef?.current?.value !== passwordConfirmRef?.current?.value) {
+    if ((passwordRef.current && passwordConfirmRef.current) && (passwordRef.current.value !== passwordConfirmRef.current.value)) {
       return setError('Password is not correct')
     }
 
     try {
+      if (emailRef.current && passwordRef.current) {
       setError('')
       setLoading(true)
-      await signup(emailRef?.current?.value, passwordRef?.current?.value) 
-    } catch {
+      await signup(emailRef.current.value, passwordRef.current.value) 
+    }} catch {
       setError('Failed to create an account')
     }  
     setLoading(false)

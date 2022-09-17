@@ -1,17 +1,32 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { auth } from '../firebase'
+import { createUserWithEmailAndPassword, User, UserCredential } from 'firebase/auth';
 
-const AuthContext = React.createContext();
+
 
 export function useAuth() {
     return useContext(AuthContext)
 }
 
-export function AuthProvider( {children} ) {
-  const [currentUser, setCurrentUser] = useState();
+interface Props {
+  children: React.ReactNode
+}
 
-  function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
+type AuthContextType = {
+  currentUser: User | null;
+  signup: (email: string, password: string) => Promise<UserCredential | void>
+}
+
+const AuthContext = React.createContext<AuthContextType>({
+  currentUser: null,
+  signup: (email: string, password: string) => Promise.resolve()
+});
+
+export function AuthProvider( {children}: Props ): JSX.Element {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  function signup(email: string, password: string) {
+    return createUserWithEmailAndPassword(auth, email, password)
   }
 
   useEffect(() => {
