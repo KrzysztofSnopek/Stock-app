@@ -3,11 +3,10 @@ import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../Contexts/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 
-export function Signup() {
+export function Login() {
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
-  const passwordConfirmRef = useRef<HTMLInputElement>(null)
-  const { signup } = useAuth()
+  const { login } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -15,18 +14,14 @@ export function Signup() {
   async function handleSubmit(e: React.ChangeEvent<any>) {
     e.preventDefault()
 
-    if ((passwordRef.current && passwordConfirmRef.current) && (passwordRef.current.value !== passwordConfirmRef.current.value)) {
-      return setError('Password is not correct')
-    }
-
     try {
       if (emailRef.current && passwordRef.current) {
       setError('')
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value) 
+      await login(emailRef.current.value, passwordRef.current.value) 
       navigate('/')
     }} catch {
-      setError('Failed to create an account')
+      setError('Failed to log in')
     }  
     setLoading(false)
   }
@@ -36,10 +31,10 @@ export function Signup() {
       <Card>
         <Card.Body>
           <h2 className='text-center mb-4'>
-            Sign Up
+            Log in
           </h2>
           {error && <Alert variant='danger'>{error}</Alert>}
-          <Form onSubmit={handleSubmit} autoComplete="off" >
+          <Form onSubmit={handleSubmit}>
             <Form.Group id='email'>
               <Form.Label>Email</Form.Label>
               <Form.Control type='email' ref={emailRef} autoComplete="off" required />
@@ -50,19 +45,14 @@ export function Signup() {
               <Form.Control type='password' ref={passwordRef} autoComplete="off" required />
             </Form.Group>
 
-            <Form.Group id='password-confirm'>
-              <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control type='password' ref={passwordConfirmRef} autoComplete="off" required />
-            </Form.Group>
-
             <Button disabled={loading} className='w-100' type='submit'>
-              Sign Up
+              Log in
             </Button>
           </Form>
         </Card.Body>
       </Card>
       <div className='w-100 text-center mt-2'>
-        Already have an account? <Link to='/login'>Log in</Link>
+        Do you need an account? <Link to='/signup'>Sign up</Link>
       </div>
     </>
   )

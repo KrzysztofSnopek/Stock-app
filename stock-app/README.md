@@ -10,3 +10,4 @@ In the project directory, you can run:
 
 npm install firebase
 npm install bootstrap react-boostrap
+npm install react-router-dom
