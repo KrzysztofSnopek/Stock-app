@@ -9,7 +9,7 @@ const [error, setError] = useState<string>('')
 const { currentUser, logout } = useAuth()
 const navigate = useNavigate()
 
-async function handleLogOut() {
+async function handleLogOut(): Promise<void> {
   setError('')
   try {
     await logout()

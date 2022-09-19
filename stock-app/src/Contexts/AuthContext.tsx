@@ -2,29 +2,26 @@ import React, { useContext, useState, useEffect } from 'react'
 import { auth } from '../firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, UserCredential } from 'firebase/auth';
 
-
-
-export function useAuth() {
-    return useContext(AuthContext)
+export function useAuth(): AuthContextData {
+    const contextValue = useContext(AuthContext)
+    if (contextValue === null) {
+      throw new Error ("useAuth must be used within AuthProvider")
+    }
+    return contextValue
 }
 
 interface Props {
   children: React.ReactNode
 }
 
-type AuthContextType = {
+interface AuthContextData {
   currentUser: User | null;
-  signup: (email: string, password: string) => Promise<UserCredential | void>
-  login: (email: string, password: string) => Promise<UserCredential | void>
-  logout: any
+  signup: (email: string, password: string) => Promise<UserCredential>
+  login: (email: string, password: string) => Promise<UserCredential>
+  logout: () => Promise<void>
 }
 
-const AuthContext = React.createContext<AuthContextType>({
-  currentUser: null,
-  signup: (email: string, password: string) => Promise.resolve(),
-  login: (email: string, password: string) => Promise.resolve(),
-  logout: () => Promise.resolve()
-});
+const AuthContext = React.createContext<AuthContextData | null>(null);
 
 export function AuthProvider( {children}: Props ): JSX.Element {
   const [currentUser, setCurrentUser] = useState<User | null>(null);

@@ -11,7 +11,7 @@ export function Login() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
-  async function handleSubmit(e: React.ChangeEvent<any>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     try {
