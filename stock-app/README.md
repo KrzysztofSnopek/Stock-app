@@ -12,3 +12,4 @@ npm install
 npm install firebase
 npm install bootstrap react-boostrap
 npm install react-router-dom
+npm install react-icons
