@@ -1,10 +1,10 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import { Signup } from './Signup'
 import { AuthProvider } from '../Contexts/AuthContext'
 import { Route, Routes} from 'react-router-dom'
 import { Dashboard } from './Dashboard'
 import { Login } from './Login'
+import { Settings } from './Settings'
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
                 <Route path="/" element={ <Dashboard /> } />
                 <Route path="/signup" element={ <Signup />} />
                 <Route path="/login" element={ <Login />} />
+                <Route path="/edit-settings" element={ <Settings />} />
             </Routes>
           </AuthProvider>
         </div>        
