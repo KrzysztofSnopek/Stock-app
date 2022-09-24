@@ -23,7 +23,7 @@ export function StockNavbar() {
   return (
     <Navbar className="navbar navbar-dark bg-primary d-flex justify-content-between">
     <div className='navbar-nav'>
-      <a className='nav-link active mt-1 ms-4'>
+      <Link to='/' className='btn btn-primary mt-1 ms-4'>
         <h5>
           <strong className='pe-2'>
             <FaChartLine />
@@ -32,12 +32,12 @@ export function StockNavbar() {
             StockAPP
           </strong>
         </h5>
-      </a>
+      </Link>
     </div>
     <div className='navbar-nav me-4'>
-     <a className='nav-link active'>
+     <Link to='/' className='btn btn-primary'>
        <FaUserAlt /> {currentUser?.email}
-     </a>
+     </Link>
      <Link to='/edit-settings' className='btn btn-primary'>
        <FaWrench /> Settings
      </Link>
@@ -52,7 +52,7 @@ export function StockNavbar() {
 
 export function Dashboard() {
   const [error, setError] = useState<string>('')
-  
+
   return (
     <div>
       <StockNavbar />

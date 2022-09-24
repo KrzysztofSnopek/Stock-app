@@ -14,3 +14,4 @@ npm install bootstrap react-boostrap
 npm install react-router-dom
 npm install react-icons
 npm install axios
+npm install react-xml-parser
