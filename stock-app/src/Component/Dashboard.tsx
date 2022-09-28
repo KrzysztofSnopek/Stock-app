@@ -57,7 +57,7 @@ export function Dashboard() {
     <div>
       <StockNavbar />
       <div className='mt-4 d-flex justify-content-center'>
-        <Card className='mt-4' style={{ maxWidth: '600px'}}>
+        <Card style={{minWidth: '800px'}}>
           <Card.Body>
             <div className='text-center mb-4'>
                 <Stock />
