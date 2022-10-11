@@ -15,8 +15,18 @@ interface StockData {
 
 export function Stock(): JSX.Element {
 const [singleStockData, setSingleStockData] = useState<StockData>();
-const [stockAmount, setStockAmount] = useState<number>(0);
-const [stockAmountOwned, setStockAmountOwned] = useState<number>(0);
+const [stockAmount0, setStockAmount0] = useState<number>(0);
+const [stockAmount1, setStockAmount1] = useState<number>(0);
+const [stockAmount2, setStockAmount2] = useState<number>(0);
+const [stockAmount3, setStockAmount3] = useState<number>(0);
+const [stockAmount4, setStockAmount4] = useState<number>(0);
+const [stockAmount5, setStockAmount5] = useState<number>(0);
+const [stockAmountOwned0, setStockAmountOwned0] = useState<number>(0);
+const [stockAmountOwned1, setStockAmountOwned1] = useState<number>(0);
+const [stockAmountOwned2, setStockAmountOwned2] = useState<number>(0);
+const [stockAmountOwned3, setStockAmountOwned3] = useState<number>(0);
+const [stockAmountOwned4, setStockAmountOwned4] = useState<number>(0);
+const [stockAmountOwned5, setStockAmountOwned5] = useState<number>(0);
 
 useEffect(() => {
     const fetchData = async () => {
@@ -34,13 +44,80 @@ useEffect(() => {
   }, 30000) 
 }, []);
 
-const handlePurchase = (e: React.FormEvent<HTMLFormElement>): void => {
+const handlePurchase = (e: React.FormEvent<HTMLFormElement>, stockName: string): void => {
   e.preventDefault();
-  setStockAmountOwned(stockAmountOwned + stockAmount);
-  setStockAmount(0);
+  buyAction(stockName);
 }
 
+const buyAction = (stockName: string): void => {
+  if( stockName === 'Future Processing') {
+    setStockAmountOwned0(stockAmountOwned0 + stockAmount0);
+    setStockAmount0(0);
+  } else if( stockName === 'FP Lab') {
+    setStockAmountOwned1(stockAmountOwned1 + stockAmount1);
+    setStockAmount1(0);
+  } else if( stockName === 'Progress Bar') {
+    setStockAmountOwned2(stockAmountOwned2 + stockAmount2);
+    setStockAmount2(0);
+  } else if( stockName === 'FP Coin') {
+    setStockAmountOwned3(stockAmountOwned3 + stockAmount3);
+    setStockAmount3(0);
+  } else if( stockName === 'FP Adventure') {
+    setStockAmountOwned4(stockAmountOwned4 + stockAmount4);
+    setStockAmount4(0);
+  } else if( stockName === 'Deadline 24') {
+    setStockAmountOwned5(stockAmountOwned5 + stockAmount5);
+    setStockAmount5(0);
+  }
+}
 
+const getStockAmountOwned = (stockName: string): number => {
+  if( stockName === 'Future Processing') {
+    return stockAmountOwned0;
+  } else if( stockName === 'FP Lab') {
+    return stockAmountOwned1;
+  } else if( stockName === 'Progress Bar') {
+    return stockAmountOwned2;
+  } else if( stockName === 'FP Coin') {
+    return stockAmountOwned3;
+  } else if( stockName === 'FP Adventure') {
+    return stockAmountOwned4;
+  } else if( stockName === 'Deadline 24') {
+    return stockAmountOwned5;
+  } else return 0
+}
+
+const getStockAmount = (stockName: string): number => {
+  if( stockName === 'Future Processing') {
+    return stockAmount0;
+  } else if( stockName === 'FP Lab') {
+    return stockAmount1;
+  } else if( stockName === 'Progress Bar') {
+    return stockAmount2;
+  } else if( stockName === 'FP Coin') {
+    return stockAmount3;
+  } else if( stockName === 'FP Adventure') {
+    return stockAmount4;
+  } else if( stockName === 'Deadline 24') {
+    return stockAmount5;
+  } else return 0
+}
+
+const setStockAmount = (stockName: string, stockAmount: number): void => {
+  if( stockName === 'Future Processing') {
+    setStockAmount0(stockAmount)
+  } else if( stockName === 'FP Lab') {
+    setStockAmount1(stockAmount)
+  } else if( stockName === 'Progress Bar') {
+    setStockAmount2(stockAmount)
+  } else if( stockName === 'FP Coin') {
+    setStockAmount3(stockAmount)
+  } else if( stockName === 'FP Adventure') {
+    setStockAmount4(stockAmount)
+  } else if( stockName === 'Deadline 24') {
+    setStockAmount5(stockAmount)
+  }
+}
 
   return (
     <Container>
@@ -64,9 +141,12 @@ const handlePurchase = (e: React.FormEvent<HTMLFormElement>): void => {
                     <td>{stock.code}</td>
                     <td>{stock.price}</td>
                     <td>
-                      <Form onSubmit={handlePurchase}>
+                      <Form onSubmit={e => handlePurchase(e, stock.name)}>
                         <Form.Group>
-                          <Form.Control key={index} type='number' autoComplete="off" required value={stockAmount} onChange={e => {setStockAmount(Number(e.target.value))}} />
+                          <Form.Control key={index} type='number' autoComplete="off" 
+                            required value={getStockAmount(stock.name)} 
+                            onChange={e => {setStockAmount(stock.name, Number(e.target.value))}} 
+                          />
                         </Form.Group>
                         <Button className='w-100' type='submit' size='sm'>
                           BUY
@@ -98,7 +178,7 @@ const handlePurchase = (e: React.FormEvent<HTMLFormElement>): void => {
                     <td>{stock.name}</td>
                     <td>{stock.code}</td>
                     <td>{stock.price}</td>
-                    <td>{stockAmountOwned}</td>
+                    <td>{getStockAmountOwned(stock.name)}</td>
                     <td><Button size='sm'>SELL</Button></td>
                   </tr>
                 )
