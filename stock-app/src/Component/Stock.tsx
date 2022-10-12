@@ -28,6 +28,7 @@ const [stockAmountOwned3, setStockAmountOwned3] = useState<number>(0);
 const [stockAmountOwned4, setStockAmountOwned4] = useState<number>(0);
 const [stockAmountOwned5, setStockAmountOwned5] = useState<number>(0);
 const [wallet, setWallet] = useState<number>(1500);
+const fixedWallet = wallet.toFixed(2);
 
 useEffect(() => {
     const fetchData = async () => {
@@ -60,21 +61,33 @@ const handleSale = (e: React.MouseEvent, stockName: string): void => {
 const buyAction = (stockName: string): void => {
   if( stockName === 'Future Processing') {
     setStockAmountOwned0(stockAmountOwned0 + stockAmount0);
+    const price: number = singleStockData?.items[0].price as number
+    setWallet(wallet - (stockAmount0 * price))
     setStockAmount0(0);
   } else if( stockName === 'FP Lab') {
     setStockAmountOwned1(stockAmountOwned1 + stockAmount1);
+    const price: number = singleStockData?.items[1].price as number
+    setWallet(wallet - (stockAmount1 * price))
     setStockAmount1(0);
   } else if( stockName === 'Progress Bar') {
     setStockAmountOwned2(stockAmountOwned2 + stockAmount2);
+    const price: number = singleStockData?.items[2].price as number
+    setWallet(wallet - (stockAmount2 * price))
     setStockAmount2(0);
   } else if( stockName === 'FP Coin') {
     setStockAmountOwned3(stockAmountOwned3 + stockAmount3);
+    const price: number = singleStockData?.items[3].price as number
+    setWallet(wallet - (stockAmount3 * price))
     setStockAmount3(0);
   } else if( stockName === 'FP Adventure') {
     setStockAmountOwned4(stockAmountOwned4 + stockAmount4);
+    const price: number = singleStockData?.items[4].price as number
+    setWallet(wallet - (stockAmount4 * price))
     setStockAmount4(0);
   } else if( stockName === 'Deadline 24') {
     setStockAmountOwned5(stockAmountOwned5 + stockAmount5);
+    const price: number = singleStockData?.items[5].price as number
+    setWallet(wallet - (stockAmount5 * price))
     setStockAmount5(0);
   }
 }
@@ -222,7 +235,7 @@ const setStockAmount = (stockName: string, stockAmount: number): void => {
             </tbody>
           </Table>   
           <h4>Available money:
-            <p>{wallet}</p>
+            <p>{fixedWallet}</p>
           </h4>
         </Col>     
       </Row> 
