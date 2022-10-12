@@ -27,6 +27,7 @@ const [stockAmountOwned2, setStockAmountOwned2] = useState<number>(0);
 const [stockAmountOwned3, setStockAmountOwned3] = useState<number>(0);
 const [stockAmountOwned4, setStockAmountOwned4] = useState<number>(0);
 const [stockAmountOwned5, setStockAmountOwned5] = useState<number>(0);
+const [wallet, setWallet] = useState<number>(1500);
 
 useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +50,13 @@ const handlePurchase = (e: React.FormEvent<HTMLFormElement>, stockName: string):
   buyAction(stockName);
 }
 
+const handleSale = (e: React.MouseEvent, stockName: string): void => {
+  e.preventDefault();
+  sellAction(stockName);
+}
+
+
+
 const buyAction = (stockName: string): void => {
   if( stockName === 'Future Processing') {
     setStockAmountOwned0(stockAmountOwned0 + stockAmount0);
@@ -68,6 +76,34 @@ const buyAction = (stockName: string): void => {
   } else if( stockName === 'Deadline 24') {
     setStockAmountOwned5(stockAmountOwned5 + stockAmount5);
     setStockAmount5(0);
+  }
+}
+
+const sellAction = (stockName: string): void => {
+  if( stockName === 'Future Processing') {
+    const price: number = singleStockData?.items[0].price as number
+    setWallet(wallet + (stockAmountOwned0 * price))
+    setStockAmountOwned0(0);
+  } else if( stockName === 'FP Lab') {
+    const price: number = singleStockData?.items[1].price as number
+    setWallet(wallet + (stockAmountOwned1 * price))
+    setStockAmountOwned1(0);
+  } else if( stockName === 'Progress Bar') {
+    const price: number = singleStockData?.items[2].price as number
+    setWallet(wallet + (stockAmountOwned2 * price))
+    setStockAmountOwned2(0);
+  } else if( stockName === 'FP Coin') {
+    const price: number = singleStockData?.items[3].price as number
+    setWallet(wallet + (stockAmountOwned3 * price))
+    setStockAmountOwned3(0);
+  } else if( stockName === 'FP Adventure') {
+    const price: number = singleStockData?.items[4].price as number
+    setWallet(wallet + (stockAmountOwned4 * price))
+    setStockAmountOwned4(0);
+  } else if( stockName === 'Deadline 24') {
+    const price: number = singleStockData?.items[5].price as number
+    setWallet(wallet + (stockAmountOwned5 * price))
+    setStockAmountOwned5(0);
   }
 }
 
@@ -179,16 +215,17 @@ const setStockAmount = (stockName: string, stockAmount: number): void => {
                     <td>{stock.code}</td>
                     <td>{stock.price}</td>
                     <td>{getStockAmountOwned(stock.name)}</td>
-                    <td><Button size='sm'>SELL</Button></td>
+                    <td><Button size='sm' onClick={e => handleSale(e, stock.name)}>SELL</Button></td>
                   </tr>
                 )
               })}
             </tbody>
           </Table>   
-          <h4>Available money: </h4>
+          <h4>Available money:
+            <p>{wallet}</p>
+          </h4>
         </Col>     
       </Row> 
     </Container>
-    
   )
 }
