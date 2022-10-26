@@ -59,7 +59,7 @@ export function Signup() {
                 <Form.Control type='password' ref={passwordConfirmRef} autoComplete="off" required />
               </Form.Group>
 
-              <Button disabled={loading} className='w-100' type='submit'>
+              <Button disabled={loading} className='w-100 mt-3' type='submit'>
                 Sign Up
               </Button>
             </Form>
