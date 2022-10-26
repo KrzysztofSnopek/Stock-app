@@ -5,6 +5,7 @@ import { Route, Routes} from 'react-router-dom'
 import { Dashboard } from './Dashboard'
 import { Login } from './Login'
 import { Settings } from './Settings'
+import { ForgotPassword } from './ForgotPassword'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/signup" element={ <Signup />} />
                 <Route path="/login" element={ <Login />} />
                 <Route path="/edit-settings" element={ <Settings />} />
+                <Route path="/forgot-password" element={ <ForgotPassword />} />
             </Routes>
           </AuthProvider>
         </div>        

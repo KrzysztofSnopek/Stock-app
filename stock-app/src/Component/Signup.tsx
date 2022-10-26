@@ -64,11 +64,13 @@ export function Signup() {
               </Button>
             </Form>
           </Card.Body>
+          <Card.Footer>
+            <div className='w-100 text-center mt-2'>
+              Already have an account? <Link to='/login'>Log in</Link>
+            </div>
+          </Card.Footer>
         </Card>
       </Container>
-      <div className='w-100 text-center mt-2'>
-        Already have an account? <Link to='/login'>Log in</Link>
-      </div>
     </>
   )
 }
