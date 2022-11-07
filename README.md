@@ -28,6 +28,7 @@ Project is created with:
 * Firebase v9.0
 * React Icons v4.6.0
 * React-Bootstrap v2.5.0
+* react-router-dom v6.4
 
 ## Features
 
