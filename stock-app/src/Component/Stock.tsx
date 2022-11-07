@@ -195,6 +195,8 @@ const setStockAmount = (stockName: string, stockAmount: number): void => {
                           <Form.Control key={index} type='number' autoComplete="off" 
                             required value={getStockAmount(stock.name)} 
                             onChange={e => {setStockAmount(stock.name, Number(e.target.value))}} 
+                            min="0"
+                            max={Math.floor(wallet / stock.price)}
                           />
                         </Form.Group>
                         <Button className='w-100' type='submit' size='sm'>
